@@ -14,7 +14,7 @@ def menu():
         print(f'Organsation: {orgid}')
         print()
         print("1.Start logging")
-        print("2.Start analysis")
+        print("2.Start detection")
         print("3.Check IDS status")
         print("4.Initialize IDS")
         print()
