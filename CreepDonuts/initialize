@@ -1,3 +1,4 @@
+pip install gcloud
 pip install firebase_admin
 pip install pandas
 pip install numpy
