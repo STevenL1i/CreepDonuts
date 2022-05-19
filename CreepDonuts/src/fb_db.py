@@ -23,8 +23,6 @@ class fb_db:
         # use a service account
         cred = credentials.Certificate(fyp_firebase)
         firebase_admin.initialize_app(cred)
-        # need to remove due to security reason
-        # this.db = firestore.client()
     
     def setupDetection(this, baseline:dict, rules:dict):
         db = firestore.client()
@@ -68,7 +66,7 @@ class fb_db:
         result = doc.get().to_dict()
         return result
 
-    def updateDetectionLog(this, anomaly:str, date:datetime, range:datetime, type:str):
+    def updateDetectionLog(this, anomaly:list, date:datetime, range:datetime, type:str):
         db = firestore.client()
         detectionLog = {"anomaly": anomaly,
                         "date": date,
@@ -80,4 +78,8 @@ class fb_db:
         doc = db.collection(f'{this.orgid}_detection').document(timestamp)
         doc.set(detectionLog)
         
-        
+    def getDetectionLog(this, detection_type:str, event_status:str):
+        db = firestore.client()
+        query = db.collection(f'{this.orgid}_detection').where("detection_type", "==", detection_type).where("event_status", "!=", event_status)
+        result = query.get()
+        return result

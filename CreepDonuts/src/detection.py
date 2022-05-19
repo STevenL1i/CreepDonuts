@@ -179,11 +179,16 @@ def alertengine(analysisLog:dict):
         time_to = datetime.strptime(analysisLog["time_to"], "%Y-%m-%d %H:%M")
         time_anomaly = time_to + timedelta(minutes=analysisLog["period"])
         if "System analysis" in anomaly:
-            detetion_type = "System analysis"
+            detection_type = "System analysis"
         else:
             detection_type = "User settings"
         fbins.updateDetectionLog(anomaly, time_anomaly, time_from, detection_type)
 
+
+def recalibrate():
+    confirm_dlog = fbins.getDetectionLog("System analysis", "confirm")
+    for dl in confirm_dlog:
+        time1 = dl["date"]
 
 
 def main():
@@ -230,8 +235,6 @@ def main():
         ##### end implementation #####
 
         index = 1
-        # detection interval (in second)
-        # time.sleep(300)
 
 if __name__ == "__main__":
     main()
